@@ -2,7 +2,13 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-function Square(props) {
+type SquareValue = 'X'|'O'|null;
+
+interface SquareProps {
+    onClick: () => void,
+    value: SquareValue
+}
+function Square(props: SquareProps) {
     return (
         <button className="square"
                 onClick={props.onClick}>
@@ -11,8 +17,12 @@ function Square(props) {
     );
 }
 
-function Board(props) {
-    function renderSquare(i) {
+interface BoardProps {
+    onClick: (i: number) => void,
+    squares: SquareValue[]
+}
+function Board(props: BoardProps) {
+    function renderSquare(i: number) {
         return <Square value={props.squares[i]}
                        onClick={props.onClick.bind(props, i)}
         />;
@@ -38,15 +48,15 @@ function Board(props) {
     );
 }
 
-function Game(props) {
+function Game() {
     const [state, setState] = useState({
         history: [{
-            squares: Array(9).fill(null)
+            squares: Array<SquareValue>(9).fill(null)
         }],
         xIsNext: true,
         stepNumber: 0
     });
-    function handleClick(i) {
+    function handleClick(i: number) {
         const history = state.history.slice(0, state.stepNumber + 1);
         const current = history[history.length - 1];
         const squares = current.squares.slice();
@@ -62,7 +72,7 @@ function Game(props) {
             stepNumber: history.length
         });
     }
-    function jumpTo(step) {
+    function jumpTo(step: number) {
         setState(state => { return {
             ...state,
             stepNumber: step,
@@ -107,7 +117,7 @@ function Game(props) {
     return render();
 }
 
-function calculateWinner(squares) {
+function calculateWinner(squares: SquareValue[]) {
     const lines = [
         [0, 1, 2],
         [3, 4, 5],
