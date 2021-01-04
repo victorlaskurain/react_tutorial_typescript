@@ -20,7 +20,7 @@ interface SquareProps {
 function Square(props: SquareProps) {
 ```
 
-Remember that this is information you already have to take into account: if you fail to pass the value prop the Square component you will get a runtime error. By providing the compiler with this information you can turn a runtime error into a compile time error. Moreover, the runtime errors might not arise in every run of the application and might even be rather hard to see at glance. On the other hand, the compiler will always warn you of them. Let's say that you forgot that setState does not merge and thus left out ```...state``` thus typing this:
+Remember that this is information you already have to take into account: if you fail to pass the value prop the Square component you will get a runtime error. By providing the compiler with this information you can turn a runtime error into a compile time error. Moreover, the runtime errors might not arise in every run of the application and might even be rather hard to see at glance. On the other hand, the compiler will always warn you of them. Let's say that you forgot that setter returned from useState (setState in this case) does not merge and thus left out ```...state``` typing this:
 
 ```typescript
     function jumpTo(step: number) {
@@ -57,7 +57,7 @@ At runtime the jump to buttons would stop working but the error would not show u
     79 |         }});
 ```
 
-Type checking also works inside JXP. For example if you type this (note the typo "ssquare":
+Type checking also works inside JSX. For example if you type this (note the typo "ssquare":
 
 ```typescript
                     <Board ssquares={current.squares}
